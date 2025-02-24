@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dragobete</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+        background-image: url('assets/bg2.PNG');
+        overflow: hidden;
+    }
+    header, main, footer {
+      width: 100%;
+      text-align: center;
+    }
+    header {
+      padding: 20px;
+      background: #d79147;
+      color: #fff;
+    }
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #container {
+      background: wheat;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 90%;
+      max-width: 400px;
+      margin: auto;
+    }
+    h1 {
+      color: #dfdabb;
+    }
+    h2 {
+        color: #d79147;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      max-width: -webkit-fill-available;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      border: none;
+      background: #d79147;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background: #e37c0e;
+    }
+    #error-message {
+      color: red;
+      margin-top: 10px;
+    }
+    #picture-container {
+      display: none; 
+      overflow-y: auto;
+      max-height: 300px;
+      margin-top: 20px;
+    }
+    #picture-container img {
+      width: 100%;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+    #modal-overlay {
+      display: none; 
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5); 
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    #modal {
+      background: rgba(255,192,203,0.9); 
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 300px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    #modal-message {
+        color: white;
+    }
+    #modal button {
+      background: #ff69b4;
+      margin-top: 15px;
+    }
+    footer {
+      padding: 10px;
+      background: #d79147;
+      color: #fff;
+    }
+    #input-container {
+        max-width: 100%;
+    }
+
+    /* WebKit browsers */
+    #container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+#container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+#container::-webkit-scrollbar-thumb {
+  background: #d79147; /* your color */
+  border-radius: 10px;
+}
+
+#container::-webkit-scrollbar-thumb:hover {
+  background: #c6803b;
+}
+
+#container {
+  scrollbar-width: thin;
+  scrollbar-color: #d79147 #f1f1f1;
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>De Dragobete și nu numai</h1>
+  </header>
+  <main>
+    <div id="container">
+      <!-- Question and Input Section -->
+      <div id="question-container">
+        <h2>Cum te cheamă?</h2>
+        <div id="input-container">
+        <input type="text" id="name-input" placeholder="Hmm...." maxlength="20">
+        <button id="submit-btn">Așa</button>
+    </div>
+        <p id="error-message"></p>
+      </div>
+      
+      <div id="picture-container">
+        <h2>Oricât de frig ar fi</h2>
+        <img src="./assets/frig.PNG" alt="Noi">
+        <h2>Te-aș căuta zeci de kilometri</h2>
+        <img src="./assets/mers.PNG" alt="Noi">
+        <h2>Ca să fim împreună</h2>
+        <img src="./assets/leo.PNG" alt="Noi">
+        <h2>Și doar pentru o secundă ;)</h2>
+        <h2>MrrRRr...</h2>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <p>&copy; Top 1</p>
+  </footer>
+  
+  <div id="modal-overlay">
+    <div id="modal">
+      <p id="modal-message">Bună Miruna!! ❤️</p>
+      <button id="close-modal">A! Davidd!! 💕</button>
+    </div>
+  </div>
+  
+  <script>
+    document.getElementById("submit-btn").addEventListener("click", function() {
+      var nameInput = document.getElementById("name-input");
+      var name = nameInput.value.trim();
+      var errorMessage = document.getElementById("error-message");
+      errorMessage.textContent = ""; // Clear previous error messages
+      
+      var validName = "miruna";
+      var errors = [
+        "Nu tu, tu pleacă.",
+        "Pe asta n-o vreau.",
+        "Mai încearcă.", 
+        "Dacă n-o cheamă Miruna n-o vreau."
+      ];
+      
+      if (validName === name.toLowerCase()) {
+        document.getElementById("modal-overlay").style.display = "flex";
+      } else {
+        var randomIndex = Math.floor(Math.random() * errors.length);
+        errorMessage.textContent = errors[randomIndex];
+      }
+    });
+    
+    document.getElementById("close-modal").addEventListener("click", function() {
+      document.getElementById("modal-overlay").style.display = "none";
+      document.getElementById("question-container").style.display = "none";
+      document.getElementById("picture-container").style.display = "block";
+    });
+  </script>
+</body>
+</html>
